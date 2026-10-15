@@ -6,7 +6,7 @@ TSDBench is a multimodal benchmark that brings together **time series, static ta
 
 ## Release Status
 
-**The dataset readers, data-loading code, and task configurations have been uploaded.** Dataset are available on huggingface: 
+**The dataset readers, data-loading code, and task configurations have been uploaded.** Dataset are available on huggingface: https://huggingface.co/datasets/stable-ai/TSDBench.
 
 ## Quick Start
 
@@ -25,7 +25,7 @@ dataset_name = "Store_Sales"
 task_name = "store_type_classification"
 ```
 
-The loader reads `<dataset_name>/dataset.yaml` and `<dataset_name>/tasks/<task_name>/task.yaml`, then creates the PyTorch datasets `train_ds`, `valid_ds`, and `test_ds`. Run it interactively to inspect the loaded data: https://huggingface.co/datasets/stable-ai/TSDBench.
+The loader reads `<dataset_name>/dataset.yaml` and `<dataset_name>/tasks/<task_name>/task.yaml`, then creates the PyTorch datasets `train_ds`, `valid_ds`, and `test_ds`. Run it interactively to inspect the loaded data: 
 
 ```bash
 python -i load_data.py
