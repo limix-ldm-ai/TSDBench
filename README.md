@@ -2,9 +2,43 @@
 
 TSDBench is a multimodal benchmark that brings together **time series, static tabular attributes, and graph structure** across diverse real-world domains. It supports time-series forecasting and node-level prediction tasks, including classification and regression.
 
+![TSDBench overview and key findings](assets/tsdbench-overview.png)
+
 ## Release Status
 
-**Dataset code is coming soon.** Dataset and loading code, task configurations, and detailed documentation are being prepared and will be added in upcoming updates.
+**The dataset readers, data-loading code, and task configurations have been uploaded.** Dataset are available on huggingface: 
+
+## Quick Start
+
+Use Python 3.12 and run the following from the repository root:
+
+```bash
+python3.12 -m venv TSDRead
+source TSDRead/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Set `dataset_name` and `task_name` in [`load_data.py`](load_data.py) to select a dataset and one of its tasks. For example:
+
+```python
+dataset_name = "Store_Sales"
+task_name = "store_type_classification"
+```
+
+The loader reads `<dataset_name>/dataset.yaml` and `<dataset_name>/tasks/<task_name>/task.yaml`, then creates the PyTorch datasets `train_ds`, `valid_ds`, and `test_ds`. Run it interactively to inspect the loaded data: https://huggingface.co/datasets/stable-ai/TSDBench.
+
+```bash
+python -i load_data.py
+```
+
+```python
+print(len(train_ds), len(valid_ds), len(test_ds))
+sample = train_ds[0]
+print({key: tuple(value.shape) for key, value in sample.items()
+       if hasattr(value, "shape")})
+```
+
+Each sample contains the task's input features, graph data, and target `y`. Forecasting time-series tensors use **nodes × variables × time**; node-level classification and regression samples use **time × variables** for historical inputs and a scalar target. Forecasting covariate tensors may have zero variables when no such inputs are used.
 
 ## Dataset Overview
 
@@ -12,13 +46,13 @@ TSDBench covers the following ten datasets:
 
 | Dataset | Domain | Contents |
 | --- | --- | --- |
-| ClimateSet (500 km) | Climate science | Monthly climate forcing and response time series on a 500 km grid, with geographic metadata and spatial connectivity. |
-| LargeST | Traffic | California traffic flow measurements, sensor metadata, and road-distance relationships. |
-| METR-LA | Traffic | Los Angeles traffic speed measurements, sensor metadata, and road-network structure. |
-| TaxiBJ | Urban mobility | Beijing grid-level taxi inflow and outflow, with weather, calendar information, and spatial adjacency. |
-| M5 | Retail | Item-level sales at Walmart stores, with product information, prices, calendar variables, and item relationships. |
-| Store Sales | Retail | Store–product-family sales, with promotion, holiday, and other contextual variables, plus relationships between store–family nodes. |
-| SDWPF | Renewable energy | Wind-turbine SCADA time series, turbine metadata, and spatial relationships for wind-power prediction. |
-| Terra | Climate science | Gridded climate variables, including precipitation, temperature, humidity, radiation, and wind speed, with spatial metadata and graph structure. |
-| Mosqlimate Dengue | Public health | Weekly dengue cases in Brazilian municipalities, with municipality metadata and geographic adjacency. |
-| U.S. COVID-19 (Google Open Data) | Public health | U.S. county-level weekly COVID-19 cases, demographic attributes, and county adjacency. |
+| ClimateSet (500 km) | Climate  | Climate-response observations and greenhouse-gas forcing variables over global 500-km grid cells. |
+| LargeST | Traffic | Historical traffic observations and road attributes for sensors or road segments, together with the surrounding road-network structure. |
+| METR-LA | Traffic | Traffic-speed observations from Los Angeles freeway sensors, together with the road-network graph. |
+| TaxiBJ | Traffic  | Taxi mobility over a regular grid covering Beijing. |
+| M5 | E-commerce | A large-scale retail dataset containing daily sales and price records for Walmart products across multiple stores and states. |
+| Store Sales | E-commerce | Derived from the Corporación Favorita grocery sales dataset. |
+| SDWPF | Energy | A large-scale wind-farm SCADA dataset containing multivariate operational and meteorological measurements for spatially distributed wind turbines. |
+| Terra | Climate  | A representation of the Earth as a collection of spatially connected geographic points with environmental attributes and temporal observations. |
+| Mosqlimate Dengue | Public health | Municipality-level dengue surveillance, environmental, demographic, and spatial information. |
+| U.S. COVID-19 (Google Open Data) | Public health | Regional pandemic, mobility, demographic, and geographic information for areas in the United States. |

@@ -1,0 +1,22 @@
+# TSDBench data-loading dependencies.
+# Python 3.12; validated with Python 3.12.3 on Linux x86_64.
+# Direct dependencies are pinned to the tested environment.
+# Covers dataset.py and dataloader.py (also named dataloader_new.py).
+# SDWPF and Terra were excluded from this dependency audit.
+# Install: python -m pip install -r requirements.txt
+# Data loading runs on CPU; a matching CPU-only PyTorch build is sufficient.
+
+# Arrays, data frames, YAML configuration, and PyTorch dataset/tensor outputs.
+numpy==2.5.1
+pandas==2.3.3
+PyYAML==6.0.2
+torch==2.9.1
+
+# HDF5 backend required by pandas.read_hdf.
+tables==3.11.1
+
+# Parquet backend required by pandas.read_parquet.
+pyarrow==19.0.1
+
+# Imported at module scope by the current readers and dataloader.
+ipdb==0.13.13
