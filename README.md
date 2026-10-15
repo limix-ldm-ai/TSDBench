@@ -6,17 +6,11 @@ TSDBench is a multimodal benchmark that brings together **time series, static ta
 
 ## Release Status
 
-**The dataset readers, data-loading code, and task configurations have been uploaded.** Dataset are available on huggingface: https://huggingface.co/datasets/stable-ai/TSDBench.
+**The dataset readers, data-loading code, and task configurations have been uploaded.** Datasets are available on huggingface: https://huggingface.co/datasets/stable-ai/TSDBench.
 
 ## Quick Start
 
-Use Python 3.12 and run the following from the repository root:
-
-```bash
-python3.12 -m venv TSDRead
-source TSDRead/bin/activate
-python -m pip install -r requirements.txt
-```
+Use Python 3.12 and build environments from requirements.txt.
 
 Set `dataset_name` and `task_name` in [`load_data.py`](load_data.py) to select a dataset and one of its tasks. For example:
 
